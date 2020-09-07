@@ -18,17 +18,22 @@ public class Task7 {
         String s = reader.readLine();
         int num = Integer.parseInt(s);
         int min = 10;
-        double cost = 0.00;
+        double cost;
         if (num == 905){
             cost =min*4.15;
+            System.out.println("Москва. Стоимость разговора: "+ cost);
         } else if (num == 194){
             cost = min*1.98;
+            System.out.println("Ростов. Стоимость разговора: "+ cost);
         } else if (num == 491){
             cost = min*2.69;
+            System.out.println("Краснодар. Стоимость разговора: "+ cost);
         }else if (num == 800){
             cost = min* 5.00;
+            System.out.println("Киров. Стоимость разговора: "+ cost);
         } else {
-            sout
+            System.out.println("Введен неизвестный код города. Расчитать стоимость минуты невозможно!");
+
         }
     }
 }
