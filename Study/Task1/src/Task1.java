@@ -11,7 +11,7 @@ public class Task1 {
         String sNum = reader.readLine();
         int nNum = Integer.parseInt(sNum);
 
-        System.out.println(nNum%10);
+        System.out.println(nNum % 10);
 
     }
 }

@@ -7,9 +7,9 @@ public class Task10 {
             [15,10,0,-6,-5,3,0,-34,0,32,56,0,24,-52]. Переместить
     нули в конец массива. Вывести результат в консоль*/
     public static void main(String[] args) {
-        int[] data = {15,10,0,-6,-5,3,0,-34,0,32,56,0,24,-52};
+        int[] data = {15, 10, 0, -6, -5, 3, 0, -34, 0, 32, 56, 0, 24, -52};
 
-        ArrayList<Integer> list =  new ArrayList<Integer>();
+        ArrayList<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i < data.length; i++) list.add(data[i]);
         moveZero(list);
 
@@ -24,7 +24,7 @@ public class Task10 {
                 list.add(list.size(), 0);
             }
         }
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }
     }

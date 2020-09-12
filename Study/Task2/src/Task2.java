@@ -12,7 +12,7 @@ public class Task2 {
         String sNum = reader.readLine();
         int nNum = Integer.parseInt(sNum);
 
-        if (nNum > 999){
+        if (nNum > 999) {
             System.out.println("Программа обрабатывает только 3х значные числа.");
         } else {
 

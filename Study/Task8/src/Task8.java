@@ -67,7 +67,7 @@ public class Task8 {
                 count++;
             }
         }
-        return sum/count;
+        return sum / count;
     }
 
 

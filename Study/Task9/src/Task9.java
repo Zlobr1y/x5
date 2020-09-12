@@ -4,9 +4,8 @@ public class Task9 {
     Переставить элементы массива в обратном порядке.
     Вывести результат в консоль*/
     public static void main(String[] args) {
-        int[] list = {15,10,51,-6,-5,3,-10,-34,0,32,56,-12,24,-52};
-        for (int i = list.length-1; i >= 0; i--)
-        {
+        int[] list = {15, 10, 51, -6, -5, 3, -10, -34, 0, 32, 56, -12, 24, -52};
+        for (int i = list.length - 1; i >= 0; i--) {
             System.out.println(list[i]);
         }
     }
