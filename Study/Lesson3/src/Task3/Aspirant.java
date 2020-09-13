@@ -1,6 +1,7 @@
 package Task3;
 
 public class Aspirant extends Student {
+    String scientificWork;
     @Override
     int getScholarship() {
         if (avgMark == 5){
