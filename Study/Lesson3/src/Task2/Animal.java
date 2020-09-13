@@ -1,8 +1,8 @@
 package Task2;
 
 public class Animal {
-    String food;
-    String location;
+    protected String food;
+    protected String location;
 
     void makeNoise(){
         System.out.println("Какое-то животное шумит.");
