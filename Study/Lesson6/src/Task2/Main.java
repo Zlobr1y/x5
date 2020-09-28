@@ -31,8 +31,8 @@ public class Main {
         System.out.println(appleBox2.getWeight());
         System.out.println(appleBox1.getWeight());
 
-        orangeBox1.add(orange1).add(apple1); //не дает в коробку с апельсинами добавить яблоко
-        appleBox1.add(orange2); //и наоборот
+//        orangeBox1.add(orange1).add(apple1); //не дает в коробку с апельсинами добавить яблоко
+//        appleBox1.add(orange2); //и наоборот
 
 
 
