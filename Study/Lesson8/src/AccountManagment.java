@@ -10,7 +10,7 @@ public class AccountManagment {
     public AccountManagment() throws SQLException {
     }
 
-    public void startAccountManagment() throws UnknownAccountException, NotEnoughMoneyException, SQLException {
+    public void startAccountManagment() throws UnknownAccountException, NotEnoughMoneyException {
 
         dbConnectController.getDBConnection();
         dbConnectController.isDbExistChecker();

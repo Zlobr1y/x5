@@ -1,19 +1,14 @@
-import java.sql.SQLException;
-
 public class AccountCreator implements AccountService {
 
     protected int subTotal;
     protected int subTotal2;
-
-    public AccountCreator() throws SQLException {
-    }
 
 
     DbConnectController dbConnectController = new DbConnectController();
 
 
     @Override
-    public void withdraw(int accountId, int amount) throws NotEnoughMoneyException, UnknownAccountException, SQLException {
+    public void withdraw(int accountId, int amount) throws NotEnoughMoneyException, UnknownAccountException {
         try {
             subTotal = (dbConnectController.findAccountInDb(accountId) - amount);
         } catch (NullPointerException | NumberFormatException e) {
@@ -39,7 +34,7 @@ public class AccountCreator implements AccountService {
     }
 
     @Override
-    public void deposit(int accountId, int amount) throws UnknownAccountException, SQLException {
+    public void deposit(int accountId, int amount) throws UnknownAccountException {
         try {
             subTotal = (dbConnectController.findAccountInDb(accountId) + amount);
         } catch (NullPointerException | NumberFormatException e) {
@@ -52,7 +47,7 @@ public class AccountCreator implements AccountService {
     }
 
     @Override
-    public void transfer(int from, int to, int amount) throws NotEnoughMoneyException, UnknownAccountException, SQLException {
+    public void transfer(int from, int to, int amount) throws NotEnoughMoneyException, UnknownAccountException {
         try {
             subTotal = (dbConnectController.findAccountInDb(from) - amount);
             subTotal2 = (dbConnectController.findAccountInDb(to) + amount);

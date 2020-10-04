@@ -1,5 +1,3 @@
-
-import java.io.IOException;
 import java.sql.*;
 
 public class DbConnectController {
@@ -12,9 +10,9 @@ public class DbConnectController {
     protected String balanceUpdate;
     protected String accountInsert;
 
-    public DbConnectController() throws SQLException {
-        urlHostname = "jdbc:postgresql://localhost/gkretail";
-        userName = "USER";
+    public DbConnectController() {
+        urlHostname = "jdbc:postgresql://localhost/postgres";
+        userName = "postgres";
         userPass = "qwerty$4";
         createTableSQL = "CREATE TABLE IF NOT EXISTS public.\"AccountsTest\" " +
                 "(\"accountId\" integer NOT NULL, " +
@@ -22,7 +20,7 @@ public class DbConnectController {
                 "PRIMARY KEY (\"accountId\"));";
         balanceSelect = "SELECT \"accountId\", amount FROM public.\"AccountsTest\" WHERE \"accountId\" = ";
         balanceUpdate = "UPDATE public.\"AccountsTest\" SET amount = ? where \"accountId\" = ?";
-        accountInsert = "Insert into public.\"AccountsTest\" (\"accountId\", amount) VALUES ( 3246, 20000)";
+        accountInsert = "Insert into public.\"AccountsTest\" (\"accountId\", amount) VALUES ( 111, 40000)";
     }
 
     public Connection getDBConnection() {
@@ -41,20 +39,11 @@ public class DbConnectController {
         return dbConnection;
     }
 
-    public void isDbExistChecker() throws SQLException {
+    public void isDbExistChecker() {
         try {
             Connection dbConnection = getDBConnection();
             PreparedStatement statement = dbConnection.prepareStatement(createTableSQL);
             statement.executeUpdate();
-            /*int a = 0;
-            int b = 10000;
-            for (int i = 0; i < 10; i++) {
-                int randomId = a + (int) (Math.random() * b);
-                int randomAmount = (i + 1) * b;
-                statement = dbConnection.prepareStatement("Insert into public.\"AccountsTest\" (\"accountId\", amount) " +
-                        "VALUES (" + randomId + "," + randomAmount + ")");
-                statement.executeUpdate();
-            }*/
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,14 +67,11 @@ public class DbConnectController {
         return Integer.parseInt(amount);
     }
 
-    public void updateAccountInDb(int accountId, int finalAmount) throws SQLException {
+    public void updateAccountInDb(int accountId, int finalAmount) {
         try {
             Connection dbConnection = getDBConnection();
             balanceUpdate = "UPDATE public.\"AccountsTest\" SET amount = " + finalAmount + " where \"accountId\" = " + accountId;
             PreparedStatement statement = dbConnection.prepareStatement(balanceUpdate);
-            //через statement пока не вышло
-            //statement.setString(1, String.valueOf((finalAmount)));
-            //statement.setString(2, String.valueOf(accountId));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
