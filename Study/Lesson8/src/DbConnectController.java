@@ -15,7 +15,7 @@ public class DbConnectController {
     public DbConnectController() throws SQLException {
         urlHostname = "jdbc:postgresql://localhost/gkretail";
         userName = "USER";
-        userPass = "PASS";
+        userPass = "qwerty$4";
         createTableSQL = "CREATE TABLE IF NOT EXISTS public.\"AccountsTest\" " +
                 "(\"accountId\" integer NOT NULL, " +
                 "amount double precision, " +
@@ -55,7 +55,7 @@ public class DbConnectController {
                         "VALUES (" + randomId + "," + randomAmount + ")");
                 statement.executeUpdate();
             }*/
-        } catch (PSQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -87,7 +87,7 @@ public class DbConnectController {
             //statement.setString(1, String.valueOf((finalAmount)));
             //statement.setString(2, String.valueOf(accountId));
             statement.executeUpdate();
-        } catch (PSQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
