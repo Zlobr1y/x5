@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class FileCreator {
 
 
-    public File file = new File("C:\\Study\\x5\\Study\\Lesson7\\src\\Accounts.txt");//Указать полный путь до файла. У меня почему-то без указания полного пути не читался файл.
+    public File file = new File("Lesson7\\src\\Accounts.txt");
 
     public void isFileExistChecker() throws IOException {
         if (!file.exists()) {
