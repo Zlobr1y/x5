@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class FileCreator {
 
 
-    public File file = new File("Accounts.txt");
+    public File file = new File("Lesson7\\src\\Accounts.txt");
 
     public void isFileExistChecker() throws IOException {
         if (!file.exists()) {
