@@ -1,6 +1,5 @@
-package L2;
+package L2.task1;
 
-import javax.lang.model.type.MirroredTypeException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
