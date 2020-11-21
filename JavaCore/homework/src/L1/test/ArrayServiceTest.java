@@ -1,7 +1,7 @@
-package test;
+package L1.test;
 
 import junit.framework.TestCase;
-import main.ArrayService;
+import L1.main.ArrayService;
 import org.junit.Assert;
 import org.junit.Test;
 

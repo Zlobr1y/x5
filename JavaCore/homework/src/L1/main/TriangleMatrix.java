@@ -1,4 +1,4 @@
-package main;
+package L1.main;
 
 public class TriangleMatrix {
     public int[][] rows(int count) {

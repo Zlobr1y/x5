@@ -1,7 +1,7 @@
-package test;
+package L1.test;
 
 import junit.framework.TestCase;
-import main.TriangleMatrix;
+import L1.main.TriangleMatrix;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
