@@ -2,8 +2,23 @@ package L2;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class UniqueUtils {
+
+    public static ArrayList<Integer> getUniqElements(ArrayList<Integer> arrayListRepository, ArrayList<Integer> inputList) {
+        ArrayList<Integer> compareList = new ArrayList<Integer>();
+        for (Integer item : inputList) {
+            if (!compareList.contains(item)) {
+                compareList.add(item);
+            }
+            if (arrayListRepository.contains(item)) {
+                return new ArrayList<Integer>();
+            }
+        }
+        arrayListRepository.addAll(compareList);
+        return arrayListRepository;
+    }
 
     public static HashSet<Integer> getUniqElements(HashSet<Integer> hashSetRepository, ArrayList<Integer> inputList) {
         HashSet<Integer> inputSet = new HashSet<Integer>(inputList);
@@ -20,17 +35,6 @@ public class UniqueUtils {
         return hashSetRepository;
     }
 
-    public static ArrayList<Integer> getUniqElements(ArrayList<Integer> arrayListRepository, ArrayList<Integer> inputList) {
-        ArrayList<Integer> compareList = new ArrayList<Integer>();
-        for (Integer item : inputList) {
-            if (!compareList.contains(item)) {
-                compareList.add(item);
-            }
-            if (arrayListRepository.contains(item)) {
-                return new ArrayList<Integer>();
-            }
-        }
-        arrayListRepository.addAll(compareList);
-        return arrayListRepository;
-    }
+
 }
+
