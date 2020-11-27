@@ -18,7 +18,7 @@ public class Boat implements Runnable {
             takeBoat(number);
             count--;
             if (count == 0){
-
+                System.out.printf("Горшочек не ВАРИ!!!!!!!!!!");
             }
             if (i == 4) {
                 i = 0;
