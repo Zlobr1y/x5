@@ -13,14 +13,14 @@ public class Boat implements Runnable {
 
     @Override
     public void run() {
-        Thread current = Thread.currentThread();
+
         for (int i = 0; i < 5; i++) {
             number = i+1;
             takeBoat(number);
             count--;
             if (count == 0){
-                current.isInterrupted();
-                System.out.println("НАКАТАЛСЯ!");
+                System.out.println(Thread.currentThread().getName()+ "НАКАТАЛСЯ!");
+                break;
             }
             if (i == 4) {
                 i = 0;
