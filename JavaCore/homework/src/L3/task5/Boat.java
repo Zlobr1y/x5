@@ -13,12 +13,14 @@ public class Boat implements Runnable {
 
     @Override
     public void run() {
+        Thread current = Thread.currentThread();
         for (int i = 0; i < 5; i++) {
-            number = i;
+            number = i+1;
             takeBoat(number);
             count--;
             if (count == 0){
-                System.out.printf("Горшочек не ВАРИ!!!!!!!!!!");
+                current.isInterrupted();
+                System.out.println("НАКАТАЛСЯ!");
             }
             if (i == 4) {
                 i = 0;
@@ -37,6 +39,12 @@ public class Boat implements Runnable {
                 e.printStackTrace();
             }
             System.out.println("Boat number " + this.number + " is finish sail");
+            try {
+                random = (int) (Math.random() * 1000);
+                Thread.sleep(random);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             lock.notify();
         }
     }
