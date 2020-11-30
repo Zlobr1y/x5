@@ -15,11 +15,11 @@ public class Boat implements Runnable {
     public void run() {
 
         for (int i = 0; i < 5; i++) {
-            number = i+1;
+            number = i + 1;
             takeBoat(number);
             count--;
-            if (count == 0){
-                System.out.println(Thread.currentThread().getName()+ "НАКАТАЛСЯ!");
+            if (count == 0) {
+                System.out.println(Thread.currentThread().getName() + "НАКАТАЛСЯ!");
                 break;
             }
             if (i == 4) {
@@ -30,8 +30,9 @@ public class Boat implements Runnable {
     }
 
     public void takeBoat(int number) {
+        int random;
         synchronized (lock) {
-            int random = (int) (200 + Math.random() * 800);
+            random = (int) (200 + Math.random() * 800);
             System.out.println("Boat number " + this.number + " is sailing " + random + " time");
             try {
                 Thread.sleep(random);
@@ -39,13 +40,14 @@ public class Boat implements Runnable {
                 e.printStackTrace();
             }
             System.out.println("Boat number " + this.number + " is finish sail");
-            try {
-                random = (int) (Math.random() * 1000);
-                Thread.sleep(random);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            lock.notify();
+        }
+        lock.notify();
+        try {
+            random = (int) (Math.random() * 1000);
+            Thread.sleep(random);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
+
 }
