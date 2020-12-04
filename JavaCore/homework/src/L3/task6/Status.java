@@ -20,10 +20,9 @@ public class Status extends Thread implements Closeable {
                 int breadCount = kitchen.getBreadsCount();
                 int meatCount = kitchen.getMeatsCount();
                 int burgersCount = 0;
-                        if (Math.floorDiv(breadCount, 2) < meatCount){
-                            burgersCount = Math.floorDiv(breadCount, 2);
-                        }
-                        else breadCount = meatCount;
+                if (Math.floorDiv(breadCount, 2) < meatCount) {
+                    burgersCount = Math.floorDiv(breadCount, 2);
+                } else breadCount = meatCount;
 
                 System.out.println("Status: bread - " + breadCount + "  meat - " + meatCount + "  can cook " + burgersCount + " burgers");
                 sleep(timer);
