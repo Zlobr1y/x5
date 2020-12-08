@@ -1,8 +1,8 @@
 package dao;
 
-import domain.Car;
+import domain.Account;
 
 public interface DaoFactory<T> {
 
-    Dao<Car> getDao(DaoType daoType);
+    Dao<Account> getDao(DaoType daoType);
 }

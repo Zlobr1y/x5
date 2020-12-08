@@ -1,10 +1,11 @@
 package dao;
 
-import dao.Exception.DaoException;
+import exception.DaoException;
 
 public interface Dao<T> {
 
     void insert(T item) throws DaoException;
-    void delete(T item);
-    T getById(int id);
+    void update(T item) throws DaoException;
+    void delete(T item) throws DaoException;
+    T getById(int id) throws DaoException;
 }

@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS car(
-vin varchar(30) primary key,
-color varchar(30),
-model varchar(30),
-price DOUBLE PRECISION
+CREATE TABLE IF NOT EXISTS account
+(
+	id int not null
+			primary key,
+	balance double precision default 0 not null
 );

@@ -1,25 +1,25 @@
-package dao.impl;
+package impl;
 
 
 import dao.Dao;
 import dao.DaoDbConnectionSource;
 import dao.DaoFactory;
 import dao.DaoType;
-import domain.Car;
+import domain.Account;
 
-public class CarDaoFactory implements DaoFactory<Car> {
+public class AccountDaoFactory implements DaoFactory<Account> {
 
 
     @Override
-    public Dao<Car> getDao(DaoType type) {
-        Dao<Car> dao;
+    public Dao<Account> getDao(DaoType type) {
+        Dao<Account> dao;
         switch (type) {
             case DATABASE:
                 DaoDbConnectionSource service = new DaoDbConnectionSource();
-                dao = new DbCarDao(service);
+                dao = new DbAccountDao(service);
                 break;
             case JSON:
-                dao = new JsonCarDao();
+                dao = new JsonAccountDao();
                 break;
             default:
                 throw new UnsupportedOperationException("Don't find dao");
