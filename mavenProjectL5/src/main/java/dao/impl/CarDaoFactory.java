@@ -2,10 +2,9 @@ package dao.impl;
 
 
 import dao.Dao;
+import dao.DaoDbConnectionSource;
 import dao.DaoFactory;
 import dao.DaoType;
-import dao.impl.DbCarDao;
-import dao.impl.JsonCarDao;
 import domain.Car;
 
 public class CarDaoFactory implements DaoFactory<Car> {
@@ -16,7 +15,8 @@ public class CarDaoFactory implements DaoFactory<Car> {
         Dao<Car> dao;
         switch (type) {
             case DATABASE:
-                dao = new DbCarDao();
+                DaoDbConnectionSource service = new DaoDbConnectionSource();
+                dao = new DbCarDao(service);
                 break;
             case JSON:
                 dao = new JsonCarDao();

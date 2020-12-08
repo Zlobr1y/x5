@@ -9,6 +9,7 @@ public class Application {
         CarDaoFactory carDaoFactory = new CarDaoFactory();
         Dao<Car> dao = carDaoFactory.getDao(DaoType.DATABASE);
 
+
         Car car = new Car();
         car.setVin("1");
         car.setColor("Black");
@@ -17,7 +18,9 @@ public class Application {
 
         try {
             dao.insert(car);
+            System.out.println(dao.getById(1));
         } catch (DaoException e){
+            e.printStackTrace();
         }
     }
 }
