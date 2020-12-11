@@ -1,6 +1,6 @@
 package dao;
 
-import domain.Account;
+import Account;
 
 public interface DaoFactory<T> {
 

@@ -1,8 +1,5 @@
-package impl;
-
-import dao.DaoDbConnectionSource;
+import sourses.DaoDbConnectionSource;
 import exception.DaoException;
-import domain.Account;
 import dao.Dao;
 
 import java.sql.Connection;
@@ -26,12 +23,12 @@ public class DbAccountDao implements Dao<Account> {
     }
 
     @Override
-    public void insert(Account item) throws DaoException {
+    public void insert(Account obj) throws DaoException {
         try (Connection connection = service.getConnection();
              PreparedStatement statement = connection.prepareStatement(REGISTER_QUERY)) {
 
-            statement.setInt(1, item.getId(ID));
-            statement.setDouble(2, item.getBalance(BALANCE));
+            statement.setInt(1, obj.getId());
+            statement.setDouble(2, obj.getBalance());
 
             statement.executeUpdate();
 
@@ -41,12 +38,12 @@ public class DbAccountDao implements Dao<Account> {
     }
 
     @Override
-    public void update(Account item) throws DaoException {
+    public void update(Account obj) throws DaoException {
         try (Connection connection = service.getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
 
-            statement.setInt(2, item.getId(ID));
-            statement.setDouble(1, item.getBalance(BALANCE));
+            statement.setInt(2, obj.getId());
+            statement.setDouble(1, obj.getBalance());
 
             statement.executeUpdate();
 
@@ -57,11 +54,11 @@ public class DbAccountDao implements Dao<Account> {
     }
 
     @Override
-    public void delete(Account item) throws DaoException {
+    public void delete(Account obj) throws DaoException {
         try (Connection connection = service.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
 
-            statement.setInt(1, item.getId(ID));
+            statement.setInt(1, obj.getId());
 
             statement.executeUpdate();
 
@@ -86,5 +83,10 @@ public class DbAccountDao implements Dao<Account> {
             e.printStackTrace();
         }
         return account;
+    }
+
+    @Override
+    public Account find(Account obj) throws DaoException {
+        return getById(obj.getId());
     }
 }

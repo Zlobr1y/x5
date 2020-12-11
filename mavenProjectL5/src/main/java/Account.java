@@ -1,5 +1,3 @@
-package domain;
-
 public class Account {
     private int id;
     private double balance;
@@ -13,7 +11,7 @@ public class Account {
 
     }
 
-    public int getId(String ID) {
+    public int getId() {
         return id;
     }
 
@@ -21,7 +19,7 @@ public class Account {
         this.id = id;
     }
 
-    public double getBalance(String BALANCE) {
+    public double getBalance() {
         return balance;
     }
 

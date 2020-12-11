@@ -1,11 +1,8 @@
-package impl;
-
-
 import dao.Dao;
-import dao.DaoDbConnectionSource;
+import sourses.DaoDbConnectionSource;
 import dao.DaoFactory;
 import dao.DaoType;
-import domain.Account;
+import sourses.DaoJsonConnectionSource;
 
 public class AccountDaoFactory implements DaoFactory<Account> {
 
@@ -15,8 +12,7 @@ public class AccountDaoFactory implements DaoFactory<Account> {
         Dao<Account> dao;
         switch (type) {
             case DATABASE:
-                DaoDbConnectionSource service = new DaoDbConnectionSource();
-                dao = new DbAccountDao(service);
+                dao = new DbAccountDao(new DaoDbConnectionSource());
                 break;
             case JSON:
                 dao = new JsonAccountDao();
