@@ -10,28 +10,28 @@ import java.io.IOException;
 public class AccountService implements Service<Account> {
     private final Dao<Account> accountDao;
 
-    public AccountService(DaoType type) {
-        AccountAccountFactory accountDaoFactory = new AccountAccountFactory();
-        this.accountDao = accountDaoFactory.getDao(type);
+    public AccountService(Dao<Account> type) {
+//        AccountServiceFactory accountDaoFactory = new AccountServiceFactory();
+        this.accountDao = type;
     }
 
     @Override
-    public void withdraw(Account account, int amount) throws NotEnoughMoneyException, DaoException, IOException, DublicatePrimaryKeyException, AccountException {
-        Account thisAccount = accountDao.find(account);
+    public void withdraw(int id, int amount) throws NotEnoughMoneyException, DaoException, IOException, DublicatePrimaryKeyException, AccountException, UnknownAccountException {
+        Account thisAccount = accountDao.getById(id);
         if (thisAccount.getBalance() - amount < 0) {
-            throw new NotEnoughMoneyException();
+            throw new NotEnoughMoneyException("Account " + thisAccount.getHolder().getName() + " need more gold.");
         }
-        thisAccount.setBalance(account.getBalance() - amount);
+        thisAccount.setBalance(thisAccount.getBalance() - amount);
         accountDao.update(thisAccount);
     }
 
     @Override
-    public double balance(Account account) throws UnknownAccountException, DaoException {
-        return accountDao.find(account).getBalance();
+    public double balance(int id) throws UnknownAccountException, DaoException {
+        return accountDao.getById(id).getBalance();
     }
 
     @Override
-    public void deposit(Account account, int amount) throws DaoException, IOException, DublicatePrimaryKeyException, AccountException {
+    public void deposit(Account account, int amount) throws DaoException, IOException, DublicatePrimaryKeyException, AccountException, UnknownAccountException {
         Account thisAccount = accountDao.find(account);
         thisAccount.setBalance(thisAccount.getBalance() + amount);
         accountDao.update(thisAccount);
@@ -42,8 +42,8 @@ public class AccountService implements Service<Account> {
         Account fromAccount = accountDao.find(from);
         Account toAccount = accountDao.find(to);
 
-        if (fromAccount.getBalance() - amount < 0){
-            throw new NotEnoughMoneyException();
+        if (fromAccount.getBalance() - amount < 0) {
+            throw new NotEnoughMoneyException("Account " + fromAccount.getHolder().getName() + " need more gold.");
         }
         fromAccount.setBalance(fromAccount.getBalance() - amount);
         toAccount.setBalance(toAccount.getBalance() + amount);

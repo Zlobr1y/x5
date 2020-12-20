@@ -11,11 +11,11 @@ public interface Dao<T> {
 
     void insert(T obj) throws DaoException, DublicatePrimaryKeyException, AccountException;
 
-    void update(T obj) throws DaoException, DublicatePrimaryKeyException, IOException, AccountException;
+    void update(T obj) throws DaoException, DublicatePrimaryKeyException, IOException, AccountException, UnknownAccountException;
 
     void delete(T obj) throws DaoException, UnknownAccountException, AccountException;
 
-    T getById(int id);
+    T getById(int id) throws UnknownAccountException, DaoException;
 
     T find(T obj) throws DaoException;
 

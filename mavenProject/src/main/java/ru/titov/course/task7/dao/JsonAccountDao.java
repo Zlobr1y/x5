@@ -16,7 +16,7 @@ public class JsonAccountDao implements Dao<Account> {
     private final Gson gson = new Gson();
 
     public JsonAccountDao() {
-        this.daoJsonConnectionSource = new DaoJsonConnectionSource("json/");
+        this.daoJsonConnectionSource = new DaoJsonConnectionSource(new File("json/"));
     }
 
 
@@ -29,7 +29,7 @@ public class JsonAccountDao implements Dao<Account> {
             throw new DublicatePrimaryKeyException("Account already exists");
         }
         try {
-            daoJsonConnectionSource.write(new File("json/"), gson.toJson(obj));
+            daoJsonConnectionSource.write(obj.getId(), gson.toJson(obj));
         } catch (IOException e) {
             throw new DaoException("Can't write to file");
         }
@@ -37,7 +37,7 @@ public class JsonAccountDao implements Dao<Account> {
 
 
     @Override
-    public void update(Account obj) throws DaoException, AccountException {
+    public void update(Account obj) throws DaoException, AccountException, UnknownAccountException {
         if (obj == null) {
             throw new AccountException("Account is null, something went wrong.");
         }
@@ -46,14 +46,13 @@ public class JsonAccountDao implements Dao<Account> {
         }
         Account inDataBase = getById(obj.getId());
         inDataBase.setBalance((obj.getBalance()));
-        File newAccount = new File(daoJsonConnectionSource.getDirectorySource().getPath() + File.separator + obj.getId() + ".json");
         try {
-            daoJsonConnectionSource.write(newAccount, gson.toJson(obj));
+            daoJsonConnectionSource.write(obj.getId(), gson.toJson(inDataBase));
         } catch (IOException e) {
             throw new DaoException("File write error");
         }
         try {
-            daoJsonConnectionSource.write(newAccount, gson.toJson(obj));
+            daoJsonConnectionSource.write(obj.getId(), gson.toJson(inDataBase));
         } catch (IOException ex) {
             throw new DaoException("Cant write to file");
         }
@@ -62,19 +61,16 @@ public class JsonAccountDao implements Dao<Account> {
     }
 
     @Override
-    public void delete(Account obj) throws DaoException, UnknownAccountException, AccountException {
+    public void delete(Account obj) throws UnknownAccountException, AccountException {
         if (obj == null){
             throw new AccountException("Account is null, something went wrong.");
         }
+        File inDataBase = new File(daoJsonConnectionSource.getSource().getPath() + File.separator + obj.getId() + ".json");
         if (!daoJsonConnectionSource.accountExists(obj.getId())) {
-            throw new AccountException("Account doesn't exist");
-        }
-        File inDataBase = new File(daoJsonConnectionSource.getDirectorySource().getPath() + File.separator + obj.getId() + ".json");
-        if (!inDataBase.exists()) {
             throw new UnknownAccountException("404. File is not found");
         }
         try {
-            daoJsonConnectionSource.delete(inDataBase);
+            daoJsonConnectionSource.delete(obj.getId());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,16 +78,20 @@ public class JsonAccountDao implements Dao<Account> {
     }
 
     @Override
-    public Account getById(int id) {
+    public Account getById(int id) throws UnknownAccountException, DaoException {
         Account account = null;
-        File newAccount = new File(daoJsonConnectionSource.getDirectorySource().getPath() + File.separator + id + ".json");
+        if (!daoJsonConnectionSource.accountExists(id)){
+            throw new UnknownAccountException("404. File is not found");
+        }
         try {
             account = gson.fromJson(daoJsonConnectionSource.read(id), Account.class);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Проблемы с читаемым файлом");
+            throw new DaoException("Can't read file");
         }
-        if (!newAccount.exists()) ;
+        if (account == null){
+            throw new DaoException("Reading error");
+        }
         return account;
     }
 

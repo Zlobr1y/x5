@@ -17,12 +17,12 @@ public interface Service<T> {
      * @throws DublicatePrimaryKeyException
      */
 
-    void withdraw(T account, int amount) throws NotEnoughMoneyException, UnknownAccountException, DaoException, IOException, DublicatePrimaryKeyException, AccountException;
+    void withdraw(int id, int amount) throws NotEnoughMoneyException, UnknownAccountException, DaoException, IOException, DublicatePrimaryKeyException, AccountException;
 
-    double balance(T account) throws UnknownAccountException, FileNotFoundException, DaoException;
+    double balance(int id) throws UnknownAccountException, FileNotFoundException, DaoException;
 
 
-    void deposit(T account, int amount) throws DaoException, IOException, DublicatePrimaryKeyException, AccountException;
+    void deposit(T account, int amount) throws DaoException, IOException, DublicatePrimaryKeyException, AccountException, UnknownAccountException;
 
     void transfer(T from, T to, int amount) throws NotEnoughMoneyException, UnknownAccountException, DaoException;
 }

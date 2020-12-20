@@ -6,7 +6,7 @@ import ru.titov.course.task7.dao.AccountFactory;
 import ru.titov.course.task7.dao.DaoType;
 import ru.titov.course.task7.dao.JsonAccountDao;
 
-public class AccountAccountFactory implements AccountFactory<Account> {
+public class AccountServiceFactory implements AccountFactory<Account> {
 
 
     @Override

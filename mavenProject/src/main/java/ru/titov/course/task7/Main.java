@@ -5,11 +5,11 @@ import ru.titov.course.task7.dao.AccountFactory;
 import ru.titov.course.task7.dao.DaoType;
 import ru.titov.course.task7.exception.DaoException;
 import ru.titov.course.task7.exception.DublicatePrimaryKeyException;
-import ru.titov.course.task7.service.AccountAccountFactory;
+import ru.titov.course.task7.service.AccountServiceFactory;
 
 public class Main {
     public static void main(String[] args) throws DublicatePrimaryKeyException, DaoException {
-        AccountFactory<Account> factory = new AccountAccountFactory();
+        AccountFactory<Account> factory = new AccountServiceFactory();
         Dao<Account> dao = factory.getDao(DaoType.JSON);
 
 
