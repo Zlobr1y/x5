@@ -31,22 +31,24 @@ public class AccountService implements Service<Account> {
     }
 
     @Override
-    public void deposit(Account account, int amount) throws DaoException, IOException, DublicatePrimaryKeyException, AccountException, UnknownAccountException {
-        Account thisAccount = accountDao.find(account);
+    public void deposit(int id, int amount) throws DaoException, IOException, DublicatePrimaryKeyException, AccountException, UnknownAccountException {
+        Account thisAccount = accountDao.getById(id);
         thisAccount.setBalance(thisAccount.getBalance() + amount);
         accountDao.update(thisAccount);
     }
 
     @Override
-    public void transfer(Account from, Account to, int amount) throws NotEnoughMoneyException, UnknownAccountException, DaoException {
-        Account fromAccount = accountDao.find(from);
-        Account toAccount = accountDao.find(to);
+    public void transfer(int from, int to, int amount) throws NotEnoughMoneyException, UnknownAccountException, DaoException, IOException, DublicatePrimaryKeyException, AccountException {
+        Account fromAccount = accountDao.getById(from);
+        Account toAccount = accountDao.getById(to);
 
-        if (fromAccount.getBalance() - amount < 0) {
+        if (fromAccount.getBalance() - amount <= 0) {
             throw new NotEnoughMoneyException("Account " + fromAccount.getHolder().getName() + " need more gold.");
         }
         fromAccount.setBalance(fromAccount.getBalance() - amount);
         toAccount.setBalance(toAccount.getBalance() + amount);
+        accountDao.update(fromAccount);
+        accountDao.update(toAccount);
 
     }
 }

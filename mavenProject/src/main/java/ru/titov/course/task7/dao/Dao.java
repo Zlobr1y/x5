@@ -13,7 +13,7 @@ public interface Dao<T> {
 
     void update(T obj) throws DaoException, DublicatePrimaryKeyException, IOException, AccountException, UnknownAccountException;
 
-    void delete(T obj) throws DaoException, UnknownAccountException, AccountException;
+    void delete(T obj) throws DaoException, UnknownAccountException, AccountException, IOException;
 
     T getById(int id) throws UnknownAccountException, DaoException;
 

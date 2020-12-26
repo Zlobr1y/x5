@@ -22,7 +22,7 @@ public interface Service<T> {
     double balance(int id) throws UnknownAccountException, FileNotFoundException, DaoException;
 
 
-    void deposit(T account, int amount) throws DaoException, IOException, DublicatePrimaryKeyException, AccountException, UnknownAccountException;
+    void deposit(int id, int amount) throws DaoException, IOException, DublicatePrimaryKeyException, AccountException, UnknownAccountException;
 
-    void transfer(T from, T to, int amount) throws NotEnoughMoneyException, UnknownAccountException, DaoException;
+    void transfer(int from, int to, int amount) throws NotEnoughMoneyException, UnknownAccountException, DaoException, IOException, DublicatePrimaryKeyException, AccountException;
 }

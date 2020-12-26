@@ -12,7 +12,7 @@ import ru.titov.course.task7.exception.*;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class AccountServiceTest {
     private Dao<Account> dao;
@@ -45,15 +45,58 @@ public class AccountServiceTest {
         service.withdraw(0,50);
     }
     @Test(expected = UnknownAccountException.class)
-    public void testBalanceUnknown() throws DaoException, UnknownAccountException {
+    public void testBalanceUnknownAccount() throws DaoException, UnknownAccountException {
         Mockito.doThrow(UnknownAccountException.class).when(dao).getById(0);
         service.balance(0);
     }
     @Test
     public void testBalance() throws DaoException, UnknownAccountException {
-        Mockito.when(dao.getById(0)).thenReturn(new Account(0,200.12,new Holder("Titov")));
-        assertEquals(100, 200.12);
+        Mockito.when(dao.getById(0)).thenReturn(new Account(0,200,new Holder("Titov")));
+        int testId = (int) service.balance(0);
+        assertEquals(testId, 200);
     }
+    @Test(expected = UnknownAccountException.class)
+    public void testDepositUnknownAccount() throws DaoException, UnknownAccountException, DublicatePrimaryKeyException, AccountException, IOException {
+        Mockito.doThrow(UnknownAccountException.class).when(dao).getById(0);
+        service.deposit(0, 500);
+    }
+    @Test
+    public void testDeposit() throws DaoException, UnknownAccountException, DublicatePrimaryKeyException, AccountException, IOException {
+        Mockito.when(dao.getById(0)).thenReturn(new Account(0,200,new Holder("Titov")));
+        service.deposit(0,500);
+    }
+    @Test(expected = UnknownAccountException.class)
+    public void testTransferUnknownAccount() throws DaoException, UnknownAccountException, NotEnoughMoneyException, DublicatePrimaryKeyException, AccountException, IOException {
+        Mockito.doThrow(UnknownAccountException.class).when(dao).getById(0);
+        Mockito.doThrow(UnknownAccountException.class).when(dao).getById(1);
+        service.transfer(0, 1, 500);
+    }
+    @Test(expected = UnknownAccountException.class)
+    public void testTransferUnknownAccountFirst() throws DaoException, UnknownAccountException, NotEnoughMoneyException, DublicatePrimaryKeyException, AccountException, IOException {
+        Mockito.when(dao.getById(0)).thenReturn(new Account(0,200,new Holder("Titov")));
+        Mockito.doThrow(UnknownAccountException.class).when(dao).getById(1);
+        service.transfer(0, 1, 500);
+    }
+    @Test(expected = UnknownAccountException.class)
+    public void testTransferUnknownAccountSecond() throws DaoException, UnknownAccountException, NotEnoughMoneyException, DublicatePrimaryKeyException, AccountException, IOException {
+        Mockito.doThrow(UnknownAccountException.class).when(dao).getById(0);
+        Mockito.when(dao.getById(1)).thenReturn(new Account(1,500,new Holder("Zharkov")));
+        service.transfer(0, 1, 500);
+    }
+    @Test(expected = NotEnoughMoneyException.class)
+    public void testTransferNoMoney() throws DaoException, UnknownAccountException, NotEnoughMoneyException, DublicatePrimaryKeyException, AccountException, IOException {
+        Mockito.when(dao.getById(0)).thenReturn(new Account(0,200,new Holder("Titov")));
+        Mockito.when(dao.getById(1)).thenReturn(new Account(1,500,new Holder("Zharkov")));
+        service.transfer(0, 1, 500);
+
+    }
+    @Test
+    public void testTransfer() throws DaoException, UnknownAccountException, NotEnoughMoneyException, DublicatePrimaryKeyException, AccountException, IOException {
+        Mockito.when(dao.getById(0)).thenReturn(new Account(0,200,new Holder("Titov")));
+        Mockito.when(dao.getById(1)).thenReturn(new Account(1,500,new Holder("Zharkov")));
+        service.transfer(0, 1, 50);
+    }
+
 
 
 }

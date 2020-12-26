@@ -15,8 +15,8 @@ public class JsonAccountDao implements Dao<Account> {
     private DaoJsonConnectionSource daoJsonConnectionSource;
     private final Gson gson = new Gson();
 
-    public JsonAccountDao() {
-        this.daoJsonConnectionSource = new DaoJsonConnectionSource(new File("json/"));
+    public JsonAccountDao(DaoJsonConnectionSource daoJsonConnectionSource) {
+        this.daoJsonConnectionSource = daoJsonConnectionSource;
     }
 
 
@@ -61,18 +61,18 @@ public class JsonAccountDao implements Dao<Account> {
     }
 
     @Override
-    public void delete(Account obj) throws UnknownAccountException, AccountException {
+    public void delete(Account obj) throws UnknownAccountException, AccountException, DaoException, IOException {
         if (obj == null){
             throw new AccountException("Account is null, something went wrong.");
         }
-        File inDataBase = new File(daoJsonConnectionSource.getSource().getPath() + File.separator + obj.getId() + ".json");
+//        File inDataBase = new File(daoJsonConnectionSource.getSource().getPath() + File.separator + obj.getId() + ".json");
         if (!daoJsonConnectionSource.accountExists(obj.getId())) {
             throw new UnknownAccountException("404. File is not found");
         }
         try {
             daoJsonConnectionSource.delete(obj.getId());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DaoException("Какая-то чепушня c файлом");
         }
 
     }
