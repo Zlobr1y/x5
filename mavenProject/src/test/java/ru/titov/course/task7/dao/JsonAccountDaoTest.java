@@ -113,13 +113,20 @@ public class JsonAccountDaoTest {
         Mockito.doThrow(IOException.class).when(source).read(0);
         jsonAccountDao.getById(0);
     }
+    /*private Account getAccount(){
+        return new Account(0,100.12, new Holder("titov"));
+    }
+    private String getJsonAcc(){
+        return gson.toJson(new Account(0,100.12, new Holder("titov")));
+    }*/
 
     @Test
     public void testGetById() throws IOException, DaoException, UnknownAccountException {
         Mockito.when(source.accountExists(0)).thenReturn(true);
-//        Account titov = new Account(0, 123, new Holder("titov"));
-        Mockito.when(source.read(0)).thenReturn(gson.toJson(new Account(0, 123, new Holder("titov"))));
-        Assert.assertEquals(new Account(0, 123, new Holder("titov")), jsonAccountDao.getById(0));
+        Account titov = new Account(0, 123, new Holder("titov"));
+        Mockito.when(source.read(0)).thenReturn(gson.toJson(titov));
+//        Assert.assertEquals(titov, jsonAccountDao.getById(0));
+        titov.equals(jsonAccountDao.getById(0));
     }
 
 
