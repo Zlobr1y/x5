@@ -45,6 +45,7 @@ public class Harvester implements Runnable {
     }
 
     private double getSalary(){
+        //если с разработкой не сложится можно идти сборщиком яблок :D
         return appleCount*7;
     }
 
