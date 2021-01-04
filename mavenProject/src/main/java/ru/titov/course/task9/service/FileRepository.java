@@ -1,25 +1,24 @@
-package ru.titov.course.task7.sourses;
+package ru.titov.course.task9.service;
 
 import java.io.*;
 
-public class DaoJsonConnectionSource {
+public class FileRepository {
     final File source;
-
-
-    public DaoJsonConnectionSource(File source) {
-        this.source = source;
-        if (!source.exists()) {
-            source.mkdir();
-        }
-    }
 
     public File getSource() {
         return source;
     }
 
+    public FileRepository() {
+        this.source = new File("json/");
+        if (!source.exists()) {
+            source.mkdir();
+        }
+    }
+
     public void write(int id, String account) throws IOException {
         File newFile = getFile(id);
-        if (newFile == null){
+        if (newFile == null) {
             throw new IOException("File doesn't exist");
         }
         newFile.createNewFile();
@@ -30,10 +29,10 @@ public class DaoJsonConnectionSource {
 
     public void delete(int id) throws IOException {
         File toDel = getFile(id);
-        if (toDel == null){
+        if (toDel == null) {
             throw new IOException("Account is null");
         }
-        if (!toDel.exists()){
+        if (!toDel.exists()) {
             throw new IOException(("File is not found"));
         }
         toDel.delete();
@@ -47,10 +46,12 @@ public class DaoJsonConnectionSource {
         }
         return object.toString();
     }
+
     private File getFile(int id) {
         File newAccount = new File(source + File.separator + id + ".json");
         return newAccount;
     }
+
     public boolean accountExists(int id) {
         return getFile(id).exists();
     }

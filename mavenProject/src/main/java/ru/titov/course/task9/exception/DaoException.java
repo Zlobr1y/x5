@@ -1,4 +1,4 @@
-package ru.titov.course.task7.exception;
+package ru.titov.course.task9.exception;
 
 public class DaoException extends Exception {
     public DaoException(String msg) {
