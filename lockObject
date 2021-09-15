@@ -1,0 +1,16 @@
+public void lockObject(Object object, DbConnection dbConnection) throws ServerException {
+    assert object.getClass().getAnnotation(Entity.class) != null;
+
+    String tableName = object.getClass().getAnnotation(Table.class).name();
+    lockObject(tableName, dbConnection);
+  }
+
+  public void lockObject(String tableName, DbConnection dbConnection) throws ServerException {
+    try {
+      Class<?> clazz = Class.forName("Tbi"+tableName);
+      Lockable lockable = () -> args(tableName);
+      lockObject(lockable, dbConnection);
+    } catch (ClassNotFoundException e) {
+      createServerException(e);
+    }
+  }
